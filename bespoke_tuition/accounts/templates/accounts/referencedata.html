@@ -1,0 +1,57 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<!-- Products section to display and add new -->
+<h5>Products and Terms:</h5>
+<div class="card card-body">
+    <a style="width: 200px" class="btn btn-primary" href="{% url 'accounts:addproduct' %}">Add new product</a>
+    <br>
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    
+        {% for product in products %}
+            <tr>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.price }}</td>
+                <td><a class="btn btn-warning" href="{% url 'accounts:updateproduct' product.pk %}">
+                    Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <!-- Term section to display and add new -->
+    <a style="width: 200px" class="btn btn-primary" href="{% url 'accounts:addterm' %}">Add new term</a>
+    <br>
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>Term Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Half Term Start Date</th>
+            <th>Half Term End Date</th>
+            <th></th>
+        </tr>
+    
+        {% for term in terms %}
+            <tr>
+                <td>{{ term.term_name }}</td>
+                <td>{{ term.term_start_date }}</td>
+                <td>{{ term.term_end_date }}</td>
+                <td>{{ term.half_term_start_date }}</td>
+                <td>{{ term.half_term_end_date }}</td>
+                <td><a class="btn btn-warning" href="{% url 'accounts:updateterm' term.pk %}">
+                    Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

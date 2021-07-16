@@ -1,0 +1,75 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+
+<!-- This is the invoice page with addresses top left and right -->
+<div class="flex-row">
+    <div class = "d-flex justify-content-center">
+        <h3>Invoice</h3>
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class = "col-md-4">
+        <br>
+        <ul class="list-unstyled">
+            <h6>LW Bespoke Tuition</h6>
+            <h7><li>38 Monkhouse Avenue</li>
+                <li>North Sheilds</li>
+                <li>NE30 3QF</li>
+                <li>07837598152</li>
+                <li>lwbespoketuition@gmail.com</li>
+            </h7>
+        </ul>
+    </div>
+
+    <div class = "col-md-4 offset-md-4 d-flex justify-content-end">
+        <br>
+        <br>
+            <ul class="list-unstyled">
+            <h6>Bill to:</h6>
+            <h7><li>{{ invoice.client.forename }} {{ invoice.client.surname }}</li>
+                <li>{{ home.line_one }}</li>
+                <li>{{ home.line_two }}</li>
+                <li>{{ home.line_three }}</li>
+                <li>{{ home.town }}</li>
+                <li>{{ home.postcode }}</li>
+            </h7>
+            </ul>
+    </div>
+</div>
+<br>
+<!-- Invoice details -->
+<h6>Date: {{invoice.date_created}}</h6>
+<h6>Invoice Number: {{invoice.invoice_number}}</h6>
+
+<!-- Lesson details included on the invoice -->
+<div class="card card-body">
+    <table class="table table-sm table-striped">
+        <tr>
+          <th>Lesson Type</th>
+          <th>Total Lessons</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+        {% for lesson in lessons%}
+            <tr>
+              <td>{{lesson.lesson_type__product_name}}</td>
+              <td>{{lesson.total}}</td>
+              <td>{{lesson.lesson_type__price}}</td>
+              <td>{{lesson.total_price}}</td>
+            </tr>
+        {% endfor%}
+        <br>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total Price:</td>
+            <td>{{invoice.total_amount}}</td>
+          </tr>
+      </table>
+</div>
+
+{% endblock %}

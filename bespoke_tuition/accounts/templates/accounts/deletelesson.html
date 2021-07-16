@@ -1,0 +1,24 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Are you sure you wish to delete?</h5>
+
+<div class="card card-body">
+    <div class="row">
+        <div style="margin-right: 22px; margin-left: 12px;">
+            <a class="btn btn-success" href="{% url 'accounts:student' student %}">Cancel</a>
+        </div>
+        <div>
+            <form action="" method="POST">
+
+                {% csrf_token %}
+    
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

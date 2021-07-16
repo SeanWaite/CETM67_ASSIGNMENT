@@ -1,0 +1,36 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Below are all invoices:</h5>
+<br>
+
+<div class="card card-body">
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>Client</th>
+            <th>Status</th>
+            <th>Total Amount</th>
+            <th>Amount Paid</th>
+            <th>Amount Outstanding</th>
+            <th>Invoice Date</th>
+            <th>Invoice number</th>
+        </tr>
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice.client }}</td>
+            <td>{{ invoice.get_status_display }}</td>
+            <td>{{ invoice.total_amount }}</td>
+            <td>{{ invoice.amount_paid }}</td>
+            <td>{{ invoice.amount_outstanding }}</td>
+            <td>{{ invoice.date_created }}</td>
+            <td><a href="{% url 'accounts:clientdetailedinvoice' invoice.pk %}">
+                {{ invoice.invoice_number }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

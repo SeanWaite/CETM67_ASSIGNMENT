@@ -1,0 +1,52 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Create an invoice:</h5>
+
+<div class="card card-body">
+    <ul class="list-group list-group-flush">
+        <p>Uninvoiced lessons for  {{ clients.forename }} {{ clients.surname }}</p>
+        <br>
+        {% for student in students %}
+        <h6>Lessons for: {{ student.forename }} {{student.surname}}</h6>
+        <br>
+        <table class="table table-sm table-striped">
+            <tr>
+                <th>Lesson Type</th>
+                <th>Term</th>
+                <th>Lesson Start</th>
+                <th>Lesson End</th>
+                <th>Invoiced</th>
+                <th>Invoice Number</th>
+            </tr>
+            {% for lesson in lessons %}
+                {% if student == lesson.student %}
+                <tr>
+                    <td>{{ lesson.lesson_type }}</td>
+                    <td>{{ lesson.term }}</td>
+                    <td>{{ lesson.lesson_start }}</td>
+                    <td>{{ lesson.lesson_end }}</td>
+                    <td>{{ lesson.invoiced }}</td>
+                    <td>{{ lesson.invoice_number }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        {% endfor %}
+
+        <p>Total for invoice will be £{{total}}</p>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ create_invoice.as_p }}
+            
+            <input type="submit"  class="btn btn-warning" value="Create Invoice">
+        </form>
+
+
+    </ul>
+</div>
+
+{% endblock %}

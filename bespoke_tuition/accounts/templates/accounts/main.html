@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Used bootstrap to aide in quicker development... for now -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Below is my style sheet to be used at a later date -->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">-->
+    <title>LW Bespoke Tuition</title>
+</head>
+<body>
+    <div class="container-fluid">
+    <h1>LW Bespoke Tuition</h1>
+    <hr>
+    <!-- Check if user is authenticated to see the nav bar -->
+    {% if request.user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <!-- Only admins should see this nav bar -->
+            {% if request.user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:allclients' %}">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:allstudents' %}">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:refdata' %}">Products & Terms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:accounts' %}">Create Invoices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:invoices' %}">All Invoices</a>
+                </li>
+            {% endif %}
+            <!-- Only customers should see this nav bar -->
+            {% if flag %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:clientview' %}">Your Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:clientinvoices' %}">Your Invoices</a>
+                </li>
+            {% endif %}
+          </ul>
+        </div>
+        <span name="username" style="color:azure; margin-right: 22px;">Hello, {{ request.user }}</span>
+        <span name="logout"><a style="color:azure;" href="{% url 'accounts:logout' %}">Logout</a></span>
+    </nav>
+    {% endif %}
+    
+    <!-- Below is the start of my own css nav bar to be used at a later date -->
+    <!--<div class="nav-bar">
+        <a href="{% url 'accounts:home' %}">Home</a>
+        <a href="{% url 'accounts:allclients' %}">All Customers</a>
+        <a href="{% url 'accounts:allstudents' %}">All Students</a>
+        <a href="{% url 'accounts:refdata' %}">Proucts & Terms</a>
+        <a href="{% url 'accounts:accounts' %}">Accounts</a>
+        <a href="{% url 'accounts:invoices' %}">Invoices</a>
+    </div>-->
+
+    
+        {% block main %}
+
+        {% endblock %}
+    
+
+    <hr>
+    <small>Created by Sean Waite for CETM65 Assignment Two</small>
+    </div>
+</body>
+
+</html>

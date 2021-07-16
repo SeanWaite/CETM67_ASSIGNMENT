@@ -1,0 +1,44 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Please fill in the details below to register</h5>
+<br>
+
+<!-- Form to register-->
+<form action="" method="POST">
+    
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Username</label>
+        {{ form.username }}
+    </div>
+    <div class="form-group">
+        <label>Email Address</label>
+        {{ form.email }}
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        {{ form.password1 }}
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        {{ form.password2 }}
+    </div>
+
+    <button name="submit" type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<!-- Display errors if occurred, such as validation error for wrong username or password -->
+{{ form.errors }}
+
+<!-- Link to register if required -->
+<br>
+<h7>Already have an account?</h7>
+<br>
+<a class="btn btn-dark" href="{% url 'accounts:login' %}">Login</a>
+
+{% endblock %}

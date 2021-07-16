@@ -1,0 +1,55 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Please insert new students below</h5>
+
+<br>
+<!-- Form to add new student, forms linked -->
+<div class="card card-body">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <!-- Seperated this form into seperate components for a better ordering -->
+        <h6>Student details:</h6>
+        <hr>
+        <div class="form-group">
+            <label>Forename</label>
+            {{ student_form.forename }}
+        </div>
+        <div class="form-group">
+            <label>Surname</label>
+            {{ student_form.surname }}
+        </div>
+        <div class="form-group">
+            <label>Parent/Parents:</label>
+            {% if student_form.errors.parent %}
+                {{ student_form.errors.parent }}
+            {% endif %}
+            {% for check in student_form.parent %}
+                <div>
+                    {{ check.tag }} {{ check.choice_label }}
+                </div>
+            {% endfor %}
+        </div>
+    
+        <div class="form-group">
+            <label>Date of birth</label>
+            {{ student_form.date_of_birth }}
+        </div>
+        <div class="form-group">
+            <label>School Year</label>
+            {{ student_form.school_year }}
+        </div>
+
+        <br>
+        <h6>Address for tuition to take place:</h6>
+        <hr>
+        {{ student_address.as_p }}
+
+        <input type="submit" class="btn btn-success" value="Add Student">
+    </form>
+</div>
+
+{% endblock %}

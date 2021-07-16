@@ -1,0 +1,67 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+
+<!-- Student details -->
+<h5>{{ student.forename }} {{ student.surname }}</h5>
+<div class="row">
+    <div class = "col-md-3">
+        <br>
+        <div class="card card-body">
+            <ul class="list-unstyled">
+                <h6>Tuition Address:</h6>
+                {% for home in address %}
+                    <li>{{ home.line_one }}</li>
+                    <li>{{ home.line_two }}</li>
+                    <li>{{ home.line_three }}</li>
+                    <li>{{ home.town }}</li>
+                    <li>{{ home.postcode }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
+<h5>Lessons:</h5>
+<div class="card card-body">
+    <!-- Link to specific students detailed page -->
+    <a style="width: 150px" class="btn btn-primary" href="{% url 'accounts:addlessons' student.pk %}">
+        Add New Lesson</a>
+    <br>
+    <!-- Student lesson details -->
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>Lesson Type</th>
+            <th>Term</th>
+            <th>Lesson Start</th>
+            <th>Lesson End</th>
+            <th>Invoiced</th>
+            <th>Invoice Number</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for lesson in lessons %}
+            {% if student == lesson.student %}
+            <tr>
+                <td>{{ lesson.lesson_type }}</td>
+                <td>{{ lesson.term }}</td>
+                <td>{{ lesson.lesson_start }}</td>
+                <td>{{ lesson.lesson_end }}</td>
+                <td>{{ lesson.invoiced }}</td>
+                <td>{{ lesson.invoice_number }}</td>
+                <td><a class="btn btn-warning" href="{% url 'accounts:updatelesson' lesson.pk %}">
+                    Update</a></td>
+                <td>{% if lesson.invoiced is False %}
+                        <a class="btn btn-danger" href="{% url 'accounts:deletelesson' lesson.pk %}">
+                            Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Add new lesson for {{ student.forename }} {{ student.surname }}:</h5>
+
+<div class="card card-body">
+    <form action="" method="POST">
+       
+        {% csrf_token %}
+        {{ lesson_form.as_p }}
+
+        <input type="submit" class="btn btn-success" value="Submit">
+    </form>
+</div>
+
+{% endblock %}

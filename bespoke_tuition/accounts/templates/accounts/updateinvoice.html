@@ -1,0 +1,18 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Update to invoice:</h5>
+
+<div class="card card-body">
+    <form action="" method="POST">
+       
+        {% csrf_token %}
+        {{ update_invoice.as_p }}
+
+        <input type="submit" class="btn btn-success" value="Update Invoice">
+    </form>
+</div>
+
+{% endblock %}

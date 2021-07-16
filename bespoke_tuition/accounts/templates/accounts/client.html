@@ -1,0 +1,74 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+
+<!-- Customer details section including name, address and contact details -->
+<h5>{{ clients.forename }} {{ clients.surname }}</h5>
+<div class="row">
+    <div class = "col-md-3">
+        <br>
+        <div class="card card-body">
+            <ul class="list-unstyled">
+                <h6>Currrent Address:</h6>
+                {% for home in address %}
+                    <li>{{ home.line_one }}</li>
+                    <li>{{ home.line_two }}</li>
+                    <li>{{ home.line_three }}</li>
+                    <li>{{ home.town }}</li>
+                    <li>{{ home.postcode }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class = "col-md-3">
+        <br>
+        <div class="card card-body">
+            <h6>Contact Details:</h6>
+            <ul class="list-unstyled">
+            {% for contacts in contact %}
+                <li>Tel: {{ contacts.contact_number }}</li>
+                <li>E-mail: {{ contacts.email_address }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
+<h5>Child/children's Lessons:</h5>
+<div class="card card-body">
+    <!-- Link to go to specific student details page -->
+    {% for student in students %}
+    <a style="width: 150px" class="btn btn-primary" href="{% url 'accounts:student' student.pk %}">
+            {{ student.forename }} {{student.surname}}</a>
+    <br>
+    <!-- Table to show all lessons for that student -->
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>Lesson Type</th>
+            <th>Term</th>
+            <th>Lesson Start</th>
+            <th>Lesson End</th>
+            <th>Invoiced</th>
+            <th>Invoice Number</th>
+        </tr>
+        {% for lesson in lessons %}
+            {% if student == lesson.student %}
+            <tr>
+                <td>{{ lesson.lesson_type }}</td>
+                <td>{{ lesson.term }}</td>
+                <td>{{ lesson.lesson_start }}</td>
+                <td>{{ lesson.lesson_end }}</td>
+                <td>{{ lesson.invoiced }}</td>
+                <td>{{ lesson.invoice_number }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <br>
+    {% endfor %}
+</div>
+
+{% endblock %}

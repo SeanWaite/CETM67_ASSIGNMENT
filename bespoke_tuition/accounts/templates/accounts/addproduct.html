@@ -1,0 +1,17 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Add new product below:</h5>
+
+<div class="card card-body">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ product_form.as_p }}
+
+        <input type="submit" class="btn btn-success" value="Submit">
+    </form>
+</div>
+
+{% endblock %}

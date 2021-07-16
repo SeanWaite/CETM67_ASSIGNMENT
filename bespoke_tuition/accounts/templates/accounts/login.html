@@ -1,0 +1,39 @@
+{% extends "accounts/main.html" %}
+
+{% block main %}
+
+<br>
+<h5>Login</h5>
+<br>
+
+<!-- Display messages once successfully registered -->
+{% for message in messages %}
+    <h7 name="error_message">{{ message }}</h7>
+{% endfor %}
+
+<!-- Form to log in -->
+<form action="" method="POST">
+
+    {% csrf_token %}
+    <br>
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username">
+
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password">
+    </div>
+
+    <button type="submit" name="submit" class="btn btn-primary">Login</button>
+</form>
+
+<!-- Link to register if required -->
+<br>
+<h7>Don't have an account?</h7>
+<br>
+<a class="btn btn-dark" href="{% url 'accounts:register' %}">Sign Up</a>
+
+
+{% endblock %}
